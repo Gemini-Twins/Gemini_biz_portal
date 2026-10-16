@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizMap Pathway - Google Maps Business Registration Guide</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --google-blue: #4285F4;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC05;
+            --google-green: #34A853;
+            --bg-color: #F8FAFC;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --border-color: #E2E8F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* Header / Navbar */
+        header {
+            background-color: #FFFFFF;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        @media (min-width: 640px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background-color: #E8F0FE;
+            color: var(--google-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0F172A;
+            line-height: 1.2;
+        }
+
+        .brand-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Global Progress Bar */
+        .progress-wrapper {
+            width: 100%;
+            max-width: 260px;
+            background-color: #F1F5F9;
+            border-radius: 9999px;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .progress-track {
+            width: 100%;
+            background-color: #E2E8F0;
+            border-radius: 9999px;
+            height: 8px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background-color: var(--google-blue);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 9999px;
+        }
+
+        /* Main Container */
+        main {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 24px 16px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Hero Card */
+        .hero-card {
+            background: linear-gradient(135deg, #2563EB, #1D4ED8);
+            color: #FFFFFF;
+            border-radius: 20px;
+            padding: 28px 24px;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-tag {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .hero-card h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            line-height: 1.25;
+        }
+
+        @media (min-width: 640px) {
+            .hero-card h2 {
+                font-size: 30px;
+            }
+        }
+
+        .hero-card p {
+            font-size: 14px;
+            color: #DBEAFE;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background-color: #FFFFFF;
+            color: #1D4ED8;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #EFF6FF;
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Section Cards */
+        .section-box {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+
+        @media (min-width: 640px) {
+            .section-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Checklist Grid */
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        @media (min-width: 640px) {
+            .checklist-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #F1F5F9;
+            background-color: #FAFAFA;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .check-item:hover {
+            background-color: #F8FAFC;
+            border-color: #E2E8F0;
+        }
+
+        .check-item input[type="checkbox"] {
+            margin-top: 3px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--google-blue);
+            cursor: pointer;
+        }
+
+        .check-content span.title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            display: block;
+        }
+
+        .check-content span.desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            display: block;
+        }
+
+        /* Step Cards */
+        .steps-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .step-card {
+            background-color: #FFFFFF;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+
+        .step-card.completed {
+            border-color: var(--google-green);
+            background-color: #F0FDF4;
+        }
+
+        .step-top {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        @media (min-width: 640px) {
+            .step-top {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .step-number-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background-color: #E8F0FE;
+            color: var(--google-blue);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .step-title-text h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .step-title-text p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .mark-complete-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #F8FAFC;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+            transition: background-color 0.2s;
+            align-self: flex-start;
+        }
+
+        @media (min-width: 640px) {
+            .mark-complete-label {
+                align-self: auto;
+            }
+        }
+
+        .mark-complete-label:hover {
+            background-color: #F1F5F9;
+        }
+
+        .mark-complete-label input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--google-blue);
+            cursor: pointer;
+        }
+
+        .step-body {
+            font-size: 13px;
+            color: #475569;
+            padding-left: 0;
+        }
+
+        @media (min-width: 640px) {
+            .step-body {
+                padding-left: 46px;
+            }
+        }
+
+        .step-body p {
+            margin-bottom: 8px;
+        }
+
+        .portal-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--google-blue);
+            background-color: #E8F0FE;
+            padding: 6px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .portal-link:hover {
+            background-color: #D2E3FC;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #FFFFFF;
+            border-top: 1px solid var(--border-color);
+            margin-top: 32px;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .reset-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .reset-btn:hover {
+            color: var(--google-red);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="header-container">
+            <div class="brand-box">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+                <div>
+                    <h1 class="brand-title">BizMap Pathway</h1>
+                    <p class="brand-subtitle">Google Business Profile Registration Guide</p>
+                </div>
+            </div>
+            
+            <!-- Global Progress Bar -->
+            <div class="progress-wrapper">
+                <div class="progress-labels">
+                    <span style="color: #475569;">Overall Progress</span>
+                    <span id="progress-text" style="color: var(--google-blue); font-weight: 700;">0%</span>
+                </div>
+                <div class="progress-track">
+                    <div id="progress-bar" class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main>
+
+        <!-- Hero Card -->
+        <section class="hero-card">
+            <span class="hero-tag">Local SEO Made Easy</span>
+            <h2>Put Your Business on Google Maps Today</h2>
+            <p>
+                Follow this interactive, step-by-step pathway to register, verify, and optimize your business profile. Gain local visibility, collect reviews, and attract customers right from Google Search and Maps.
+            </p>
+            <div class="hero-buttons">
+                <a href="https://www.google.com/business/" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                    <span>Open Official Google Portal</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 11px;"></i>
+                </a>
+                <button onclick="scrollToChecklist()" class="btn-secondary">
+                    View Prep Checklist
+                </button>
+            </div>
+        </section>
+
+        <!-- Preparation Checklist Section -->
+        <section id="checklist-section" class="section-box">
+            <div class="section-header">
+                <div>
+                    <h3 class="section-title">
+                        <i class="fa-solid fa-clipboard-list" style="color: var(--google-blue);"></i>
+                        Preparation Checklist
+                    </h3>
+                    <p class="section-desc">Gather these details before you start registration for a smooth experience.</p>
+                </div>
+                <button onclick="resetChecklist()" class="reset-btn">Reset Checklist</button>
+            </div>
+
+            <div class="checklist-grid" id="prep-checklist">
+                <!-- Checkbox Item 1 -->
+                <label class="check-item">
+                    <input type="checkbox" data-check="1" onchange="updateChecklistProgress()">
+                    <div class="check-content">
+                        <span class="title">Exact Business Name</span>
+                        <span class="desc">The official name used on storefronts and paperwork.</span>
+                    </div>
+                </label>
+                <!-- Checkbox Item 2 -->
+                <label class="check-item">
+                    <input type="checkbox" data-check="2" onchange="updateChecklistProgress()">
+                    <div class="check-content">
+                        <span class="title">Physical Address / Service Area</span>
+                        <span class="desc">Where you are located or the regions you deliver to.</span>
+                    </div>
+                </label>
+                <!-- Checkbox Item 3 -->
+                <label class="check-item">
+                    <input type="checkbox" data-check="3" onchange="updateChecklistProgress()">
+                    <div class="check-content">
+                        <span class="title">Primary Business Category</span>
+                        <span class="desc">Industry type (e.g., Restaurant, Plumber, Retail).</span>
+                    </div>
+                </label>
+                <!-- Checkbox Item 4 -->
+                <label class="check-item">
+                    <input type="checkbox" data-check="4" onchange="updateChecklistProgress()">
+                    <div class="check-content">
+                        <span class="title">Contact Number & Website</span>
+                        <span class="desc">Phone number for customer calls and website URL.</span>
+                    </div>
+                </label>
+            </div>
+        </section>
+
+        <!-- Step-by-Step Pathway Section -->
+        <section style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="section-header">
+                <div>
+                    <h3 class="section-title">
+                        <i class="fa-solid fa-shoe-prints" style="color: var(--google-blue);"></i>
+                        Registration Pathway Steps
+                    </h3>
+                    <p class="section-desc">Check off each step as you complete it on Google.</p>
+                </div>
+            </div>
+
+            <div class="steps-wrapper" id="steps-container">
+
+                <!-- Step 1 -->
+                <div class="step-card" id="step-1">
+                    <div class="step-top">
+                        <div class="step-number-title">
+                            <div class="step-badge">1</div>
+                            <div class="step-title-text">
+                                <h4>Sign In to Google Business Profile</h4>
+                                <p>Access the portal using your primary business Google account.</p>
+                            </div>
+                        </div>
+                        <label class="mark-complete-label">
+                            <input type="checkbox" class="step-checkbox" onchange="updateMainProgress(1)">
+                            <span>Mark Completed</span>
+                        </label>
+                    </div>
+                    <div class="step-body">
+                        <p>Go to the official Google Business Profile website and sign in with the Google Account you wish to use to manage your business listing.</p>
+                        <div>
+                            <a href="https://www.google.com/business/" target="_blank" rel="noopener noreferrer" class="portal-link">
+                                <span>Open Google Business Portal</span>
+                                <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card" id="step-2">
+                    <div class="step-top">
+                        <div class="step-number-title">
+                            <div class="step-badge">2</div>
+                            <div class="step-title-text">
+                                <h4>Enter Your Business Name</h4>
+                                <p>Search to check if your business already exists or create new.</p>
+                            </div>
+                        </div>
+                        <label class="mark-complete-label">
+                            <input type="checkbox" class="step-checkbox" onchange="updateMainProgress(2)">
+                            <span>Mark Completed</span>
+                        </label>
+                    </div>
+                    <div class="step-body">
+                        <p>Type in your exact business name. If it appears in the dropdown, claim it. If not, click <strong>"Add your business to Google"</strong>.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card" id="step-3">
+                    <div class="step-top">
+                        <div class="step-number-title">
+                            <div class="step-badge">3</div>
+                            <div class="step-title-text">
+                                <h4>Choose Business Category</h4>
+                                <p>Select the category that best describes your core services.</p>
+                            </div>
+                        </div>
+                        <label class="mark-complete-label">
+                            <input type="checkbox" class="step-checkbox" onchange="updateMainProgress(3)">
+                            <span>Mark Completed</span>
+                        </label>
+                    </div>
+                    <div class="step-body">
+                        <p>Select your primary business category carefully. This helps Google match your business with local customer searches. You can add secondary categories later.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-card" id="step-4">
+                    <div class="step-top">
+                        <div class="step-number-title">
+                            <div class="step-badge">4</div>
+                            <div class="step-title-text">
+                                <h4>Add Location & Service Areas</h4>
+                                <p>Specify whether customers can visit your physical address.</p>
+                            </div>
+                        </div>
+                        <label class="mark-complete-label">
+                            <input type="checkbox" class="step-checkbox" onchange="updateMainProgress(4)">
+                            <span>Mark Completed</span>
+                        </label>
+                    </div>
+                    <div class="step-body">
+                        <p>Choose if you have a physical storefront customers can visit. If you provide services at customer locations instead, select service areas.</p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step-card" id="step-5">
+                    <div class="step-top">
+                        <div class="step-number-title">
+                            <div class="step-badge">5</div>
+                            <div class="step-title-text">
+                                <h4>Add Contact Info & Website</h4>
+                                <p>Provide phone number and website link for customer inquiries.</p>
+                            </div>
+                        </div>
+                        <label class="mark-complete-label">
+                            <input type="checkbox" class="step-checkbox" onchange="updateMainProgress(5)">
+                            <span>Mark Completed</span>
+                        </label>
+                    </div>
+                    <div class="step-body">
+                        <p>Enter your active phone number and website URL so clients can easily reach out or visit your online store.</p>
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="step-card" id="step-6">
+                    <div class="step-top">
+                        <div class="step-number-title">
+                            <div class="step-badge">6</div>
+                            <div class="step-title-text">
+                                <h4>Verify Your Business</h4>
+                                <p>Confirm ownership via phone, email, or video verification.</p>
+                            </div>
+                        </div>
+                        <label class="mark-complete-label">
+                            <input type="checkbox" class="step-checkbox" onchange="updateMainProgress(6)">
+                            <span>Mark Completed</span>
+                        </label>
+                    </div>
+                    <div class="step-body">
+                        <p>Google will require verification to prove you own the business. Options usually include SMS code, phone call, email, or recording a video of your workspace/signage.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>BizMap Pathway &bull; Designed to guide your local business growth on Google Maps.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const STORAGE_KEY = 'bizmap_pathway_progress';
+
+        function loadProgress() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    
+                    if (data.checklist) {
+                        data.checklist.forEach(item => {
+                            const cb = document.querySelector(`#prep-checklist input[data-check="${item}"]`);
+                            if (cb) cb.checked = true;
+                        });
+                    }
+
+                    if (data.steps) {
+                        data.steps.forEach((isChecked, index) => {
+                            const cbs = document.querySelectorAll('.step-checkbox');
+                            if (cbs[index]) {
+                                cbs[index].checked = isChecked;
+                                const card = document.getElementById(`step-${index + 1}`);
+                                if (isChecked && card) {
+                                    card.classList.add('completed');
+                                }
+                            }
+                        });
+                    }
+                }
+            } catch (e) {
+                console.error("Error loading progress", e);
+            }
+            calculateOverallProgress();
+        }
+
+        function saveProgress() {
+            try {
+                const checklist = [];
+                document.querySelectorAll('#prep-checklist input').forEach(cb => {
+                    if (cb.checked) checklist.push(cb.getAttribute('data-check'));
+                });
+
+                const steps = [];
+                document.querySelectorAll('.step-checkbox').forEach(cb => {
+                    steps.push(cb.checked);
+                });
+
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({ checklist, steps }));
+            } catch (e) {
+                console.error("Error saving progress", e);
+            }
+        }
+
+        function updateChecklistProgress() {
+            saveProgress();
+            calculateOverallProgress();
+        }
+
+        function updateMainProgress(stepNumber) {
+            const cb = document.querySelectorAll('.step-checkbox')[stepNumber - 1];
+            const card = document.getElementById(`step-${stepNumber}`);
+            
+            if (cb.checked) {
+                card.classList.add('completed');
+            } else {
+                card.classList.remove('completed');
+            }
+
+            saveProgress();
+            calculateOverallProgress();
+        }
+
+        function calculateOverallProgress() {
+            const totalSteps = document.querySelectorAll('.step-checkbox').length;
+            const completedSteps = document.querySelectorAll('.step-checkbox:checked').length;
+            
+            const totalChecklist = document.querySelectorAll('#prep-checklist input').length;
+            const completedChecklist = document.querySelectorAll('#prep-checklist input:checked').length;
+
+            const totalItems = totalSteps + totalChecklist;
+            const completedItems = completedSteps + completedChecklist;
+
+            const percentage = totalItems > 0 ? Math.round((completedItems / totalItems) * 100) : 0;
+
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = percentage + '%';
+        }
+
+        function resetChecklist() {
+            if (confirm('Are you sure you want to reset all progress?')) {
+                localStorage.removeItem(STORAGE_KEY);
+                document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+                document.querySelectorAll('.step-card').forEach(card => card.classList.remove('completed'));
+                calculateOverallProgress();
+            }
+        }
+
+        function scrollToChecklist() {
+            document.getElementById('checklist-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.addEventListener('DOMContentLoaded', loadProgress);
+    </script>
+</body>
+</html>
